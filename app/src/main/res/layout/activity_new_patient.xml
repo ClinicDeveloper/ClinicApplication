@@ -22,7 +22,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/new_patient"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar">
@@ -39,13 +38,15 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <EditText
                     android:id="@+id/et_pfname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="First Name" />
+                    android:hint="First Name*"
+                    android:backgroundTint="@android:color/holo_red_light" />/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -56,7 +57,8 @@
                     android:id="@+id/et_plname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Last Name" />
+                    android:hint="Last Name*"
+                    android:backgroundTint="@android:color/holo_red_light" />
             </android.support.design.widget.TextInputLayout>
 
             <FrameLayout
@@ -70,7 +72,7 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="5dp"
                     android:paddingTop="10dp"
-                    android:text="Date of Birth"
+                    android:text="Date of Birth*"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/gray"
                     android:textSize="18dp" />
@@ -155,31 +157,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical|center_horizontal|center"
-                android:gravity="center_vertical|center_horizontal|center"
-                android:orientation="vertical"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-               >
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical|center_horizontal|center"
+                android:gravity="center_vertical|center_horizontal|center"
+                android:orientation="vertical">
 
                 <include
                     android:id="@+id/loading"
-                    layout="@layout/loader"
-                    />
+                    layout="@layout/loader" />
             </LinearLayout>
 
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <EditText
                     android:id="@+id/et_pemail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email-ID"
-                    android:inputType="textEmailAddress" />
+                    android:hint="Email-ID*"
+                    android:inputType="textEmailAddress"
+                    android:backgroundTint="@android:color/holo_red_light" />
             </android.support.design.widget.TextInputLayout>
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
@@ -196,8 +198,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Select Doctor"
                 android:textColorHint="@color/gray"
-                app:met_floatingLabel="normal"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                app:met_floatingLabel="normal" />
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/reasonspnr"

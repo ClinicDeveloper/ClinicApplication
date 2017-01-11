@@ -91,7 +91,7 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="5dp"
                     android:paddingTop="10dp"
-                    android:text="Date of Birth"
+                    android:text="Date of Birth*"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/gray"
                     android:textSize="18dp" />

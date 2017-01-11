@@ -2,5 +2,6 @@
     <string name="app_name">Clinic Application</string>
     <string name="cancel">Cancel</string>
     <string name="submit">Submit</string>
+    <string name="fname">First Name<font color='#FF0000'>*</font></string>
 
 </resources>

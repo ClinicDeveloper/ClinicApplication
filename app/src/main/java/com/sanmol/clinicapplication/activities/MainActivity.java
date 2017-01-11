@@ -108,8 +108,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 String contact = etcontact.getText().toString();
+                if(contact.equalsIgnoreCase("admin123"))
+                {
+                    finish();
+                    System.exit(0);
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this,
+                            "You cannot exit from the application.", Toast.LENGTH_LONG)
+                            .show();
+                    Intent start = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(start);
+                }
                 // finish();
-                new AsyncCallExitPatientWS(contact).execute();
+                //new AsyncCallExitPatientWS(contact).execute();
             }
         });
 
@@ -129,11 +142,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             backPopup(title, this);
             return true;
         }
-       /* if ((keyCode == KeyEvent.KEYCODE_MENU)) {
+        if ((keyCode == KeyEvent.KEYCODE_MENU)) {
             Log.e("KEYCODE_MENU", "");
             backPopup(title, this);
             return true;
-        }*/
+        }
         return false;
     }
 
