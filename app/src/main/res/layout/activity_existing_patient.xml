@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/tool_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/submit_existing_patient"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_prefno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Reference No." />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="OR"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/gray"
+                android:textSize="14dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_pcontact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone No."
+                    android:inputType="phone"
+                    android:maxLength="10" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="OR"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/gray"
+                android:textSize="14dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_pemail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email-ID"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_dob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Date of Birth"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/gray"
+                    android:textSize="18dp" />
+
+                <ImageView
+                    android:id="@+id/iv_dob"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_calender" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical|center_horizontal|center"
+                android:gravity="center_vertical|center_horizontal|center"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/loading"
+                    layout="@layout/loader" />
+            </LinearLayout>
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/deptspnr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Department"
+                android:textColorHint="@color/gray"
+                app:met_floatingLabel="normal" />
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/doctorspnr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Doctor"
+                android:textColorHint="@color/gray"
+                android:visibility="gone"
+                app:met_floatingLabel="normal" />
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/reasonspnr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Reason"
+                android:textColorHint="@color/gray"
+                app:met_floatingLabel="normal" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit_existing_patient"
+        style="@style/homeButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Submit" />
+
+</RelativeLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#fff"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/tool_bar" />&ndash;&gt;
+
+            <RelativeLayout
+                android:id="@+id/loginSquar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/roundedcorners">
+
+                <TextView
+                    android:id="@+id/tvitemimage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Login"
+                    android:textColor="@color/button_material_dark"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+
+                <TableLayout
+                    android:id="@+id/tl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="5dp">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="45sp"
+                            android:layout_marginTop="15sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rounded_report">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="5sp"
+                                android:src="@drawable/user" />
+
+                            <EditText
+                                android:id="@+id/etextUsername"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="#00ffffff"
+                                android:clickable="true"
+                                android:focusableInTouchMode="true"
+                                android:hint="Phone No."
+                                android:inputType="number" />
+                        </LinearLayout>
+                    </TableRow>
+
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
+                            android:layout_width="fill_parent"
+                            android:layout_height="45sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rounded_report">
+
+                            <ImageView
+                                android:id="@+id/imageView1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="5sp"
+                                android:src="@drawable/pass" />
+
+                            <EditText
+                                android:id="@+id/etextPassword"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="#00ffffff"
+                                android:clickable="true"
+                                android:focusableInTouchMode="true"
+                                android:hint="Password"
+                                android:inputType="textPassword" />
+                        </LinearLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <CheckBox
+                                android:id="@+id/checkBoxshowpassword"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="Show Password"
+                                android:textColorHint="#3B5998"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/error"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Error Message"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="16dp"
+                                android:textStyle="italic"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </TableRow>
+
+                    &lt;!&ndash; <TableRow
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginBottom="20dp"
+                         android:layout_marginTop="10dp">
+
+                         <Button
+                             android:id="@+id/btnLogin"
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+                             android:layout_gravity="center_horizontal|center"
+                             android:layout_marginLeft="5sp"
+                             android:layout_weight="1"
+                             style="@style/buttonStyle"
+                             android:text="Login"
+                             android:textAllCaps="false"
+                             android:textColor="@color/white"
+                             android:textSize="17sp"
+                             android:textStyle="bold" />
+                     </TableRow>&ndash;&gt;
+                </TableLayout>
+
+                &lt;!&ndash;<LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|center_horizontal|center"
+                    android:gravity="center_vertical|center_horizontal|center"
+                    android:orientation="vertical"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <include
+                        android:id="@+id/loading"
+                        layout="@layout/loader" />&ndash;&gt;
+
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    style="@style/homeButtons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tl"
+                    android:gravity="center"
+                    android:text="Login"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>-->
