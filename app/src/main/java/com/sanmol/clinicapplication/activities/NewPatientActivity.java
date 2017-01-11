@@ -46,6 +46,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+
+
 public class NewPatientActivity extends AppCompatActivity {
     EditText pfname, plname, pcontact, pemail, ppass, pconfirmpass;
     Button submitBTN;
@@ -107,16 +109,16 @@ public class NewPatientActivity extends AppCompatActivity {
             String contact = getIntent().getExtras().getString("contact");
             String email = getIntent().getExtras().getString("email");
             String dob = getIntent().getExtras().getString("dob");
-            int department = getIntent().getExtras().getInt("department");
-            int doctor = getIntent().getExtras().getInt("doctor");
-            int reason = getIntent().getExtras().getInt("reason");
-
+            int deptPos = (getIntent().getExtras().getInt("department_id")) - 1;
+            int doctorPos = (getIntent().getExtras().getInt("doctor_id")) - 1;
+            int reasonPos = (getIntent().getExtras().getInt("reason_id")) - 1;
+            Log.e("ID's New ", "department_id " + deptPos + " doctor_id " + doctorPos + " reason_id " + reasonPos);
             pcontact.setText(contact);
             pemail.setText(email);
             tvdob.setText(dob);
-          /*  deptspnr.setSelection(department);
-            doctorspnr.setSelection(doctor);
-            reasonspnr.setSelection(reason);*/
+            /*deptspnr.setSelection(deptPos);
+            doctorspnr.setSelection(doctorPos);
+            reasonspnr.setSelection(reasonPos);*/
 
         }
 
@@ -165,6 +167,14 @@ public class NewPatientActivity extends AppCompatActivity {
                 String email = pemail.getText().toString();
                 Boolean emailValid = MainActivity.isValidEmail(email);
                 String dob = tvdob.getText().toString();
+
+                if (rbmale.isChecked())
+                    gender = rbmale.getText().toString();
+                else if (rbfemale.isChecked())
+                    gender = rbfemale.getText().toString();
+                else
+                    gender = rbother.getText().toString();
+
 
                 if (fname.equals("")) {
                     pfname.setError("First name cannot be empty.");

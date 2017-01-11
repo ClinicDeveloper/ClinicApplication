@@ -14,18 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:textColor="@color/dark_gray"
-        android:text="Do you want to close me?" />
+        android:text="Do you want to close me?"
+        android:textColor="@color/dark_gray" />
 
     <View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/disable_gray" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/disable_gray" />
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:layout_weight="30">
 
         <EditText
             android:id="@+id/contact"
@@ -33,10 +40,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Provide passcode"
-            android:inputType="textPassword" />
+            android:hint="Enter your registered contact no."
+            android:inputType="phone"
+            android:maxLength="10" />
     </android.support.design.widget.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="70"
+            >
 
+            <include
+                android:id="@+id/loading"
+                layout="@layout/loader"
+                />
+        </LinearLayout>
+</LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
