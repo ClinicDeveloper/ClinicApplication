@@ -33,7 +33,8 @@
                     android:id="@+id/et_prefno"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Reference No." />
+                    android:hint=""
+                    android:textSize="16dp" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView
@@ -53,9 +54,10 @@
                     android:id="@+id/et_pcontact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone No."
+                    android:hint=""
                     android:inputType="phone"
-                    android:maxLength="10" />
+                    android:maxLength="10"
+                    android:textSize="16dp" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView
@@ -75,8 +77,9 @@
                     android:id="@+id/et_pemail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email-ID"
-                    android:inputType="textEmailAddress" />
+                    android:hint=""
+                    android:inputType="textEmailAddress"
+                    android:textSize="16dp" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -91,10 +94,10 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="5dp"
                     android:paddingTop="10dp"
-                    android:text="Date of Birth*"
+                    android:text="Date of Birth"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/gray"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
 
                 <ImageView
                     android:id="@+id/iv_dob"
@@ -127,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Select Department"
                 android:textColorHint="@color/gray"
+                android:textSize="16dp"
                 app:met_floatingLabel="normal" />
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
@@ -135,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Select Doctor"
                 android:textColorHint="@color/gray"
+                android:textSize="16dp"
                 android:visibility="gone"
                 app:met_floatingLabel="normal" />
 
@@ -144,6 +149,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Select Reason"
                 android:textColorHint="@color/gray"
+                android:textSize="16dp"
                 app:met_floatingLabel="normal" />
         </LinearLayout>
     </ScrollView>

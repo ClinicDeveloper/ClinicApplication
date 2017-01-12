@@ -1,5 +1,6 @@
 package com.sanmol.clinicapplication.activities;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -44,6 +45,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            startLockTask();
+//        } else {
+//
+//        }
+
         newPatientBtn = (Button) findViewById(new_patient);
         existingPatientBtn = (Button) findViewById(R.id.existing_patient);
         date = (TextView) findViewById(R.id.date);
@@ -56,6 +63,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         date.setText(currentDateTimeString);
 
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager.moveTaskToFront(getTaskId(), 0);
     }
 
     @Override
@@ -108,13 +124,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 String contact = etcontact.getText().toString();
-                if(contact.equalsIgnoreCase("admin123"))
-                {
+                if (contact.equalsIgnoreCase("admin123")) {
                     finish();
                     System.exit(0);
-                }
-                else
-                {
+                } else {
                     Toast.makeText(MainActivity.this,
                             "You cannot exit from the application.", Toast.LENGTH_LONG)
                             .show();
@@ -142,11 +155,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             backPopup(title, this);
             return true;
         }
-        if ((keyCode == KeyEvent.KEYCODE_MENU)) {
+       /* if ((keyCode == KeyEvent.KEYCODE_MENU)) {
             Log.e("KEYCODE_MENU", "");
             backPopup(title, this);
+
             return true;
-        }
+        }*/
         return false;
     }
 
@@ -156,16 +170,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         backPopup(title, this);
     }*/
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        //finish();
-        super.onStop();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

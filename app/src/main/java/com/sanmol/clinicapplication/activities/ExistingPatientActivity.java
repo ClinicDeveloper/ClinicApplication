@@ -40,15 +40,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static android.R.attr.data;
 import static com.sanmol.clinicapplication.R.id.contact;
-import static com.sanmol.clinicapplication.activities.MainActivity.flag;
-
-import android.view.View.OnClickListener;
 
 public class ExistingPatientActivity extends AppCompatActivity {
     /*EditText usernameET, passwordET;
@@ -173,29 +170,29 @@ public class ExistingPatientActivity extends AppCompatActivity {
                         if (!emailValid)
                             pemail.setError("Email-ID is invalid.");
                     } else {*/
-                        JSONArray jsonArray = new JSONArray();
-                        jsonobj = new JSONObject();
+                    JSONArray jsonArray = new JSONArray();
+                    jsonobj = new JSONObject();
 
-                        try {
+                    try {
 
-                            jsonobj.put("ref_id", refno);
-                            jsonobj.put("phone_no", contact);
-                            jsonobj.put("email_id", email);
-                            jsonobj.put("dept_id", dept_id);
-                            jsonobj.put("doctor_id", doctor_id);
-                            jsonobj.put("reason_id", reason_id);
+                        jsonobj.put("ref_id", refno);
+                        jsonobj.put("phone_no", contact);
+                        jsonobj.put("email_id", email);
+                        jsonobj.put("dept_id", dept_id);
+                        jsonobj.put("doctor_id", doctor_id);
+                        jsonobj.put("reason_id", reason_id);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                        jsonArray.put(jsonobj);
+                    jsonArray.put(jsonobj);
 
-                        jsonString = jsonArray.toString().replaceFirst("\\[", "").replaceAll("\\}\\]\\}\\]", "}]}");
-                        jsonString = jsonArray.toString().substring(1, jsonArray.toString().length() - 1);
-                        Log.e("jsonString", "" + jsonString);
-                        new AsyncCallSubmitExistingPatientWS(jsonString).execute();
-                   // }
+                    jsonString = jsonArray.toString().replaceFirst("\\[", "").replaceAll("\\}\\]\\}\\]", "}]}");
+                    jsonString = jsonArray.toString().substring(1, jsonArray.toString().length() - 1);
+                    Log.e("jsonString", "" + jsonString);
+                    new AsyncCallSubmitExistingPatientWS(jsonString).execute();
+                    // }
 
                 } else {
                     Toast.makeText(ExistingPatientActivity.this, "Enter Ref No./Contact/Email-ID", Toast.LENGTH_LONG).show();
@@ -294,7 +291,7 @@ public class ExistingPatientActivity extends AppCompatActivity {
         final android.app.AlertDialog alert = alertDialogBuilder.create();
         alert.show();
 
-        new CountDownTimer(3000000, 1000) { // adjust the milli seconds here
+       /* new CountDownTimer(3000000, 1000) { // adjust the milli seconds here
 
             public void onTick(long millisUntilFinished) {
 
@@ -304,7 +301,7 @@ public class ExistingPatientActivity extends AppCompatActivity {
                 Intent main = new Intent(ExistingPatientActivity.this, MainActivity.class);
                 startActivity(main);
             }
-        }.start();
+        }.start();*/
 
         dialog_btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -372,9 +369,7 @@ public class ExistingPatientActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        // flag = 1;
         Intent main = new Intent(ExistingPatientActivity.this, MainActivity.class);
-        // main.putExtra("flag", "" + flag);
         startActivity(main);
         finish();
     }
@@ -435,9 +430,15 @@ public class ExistingPatientActivity extends AppCompatActivity {
     public void initialize() {
         loader_layout = (FrameLayout) findViewById(R.id.loading);
         prefno = (EditText) findViewById(R.id.et_prefno);
+        NewPatientActivity.showEditTextsAsMandatory("Reference No.", prefno);
         pcontact = (EditText) findViewById(R.id.et_pcontact);
+        NewPatientActivity.showEditTextsAsMandatory("Phone No.", pcontact);
         pemail = (EditText) findViewById(R.id.et_pemail);
+        NewPatientActivity.showEditTextsAsMandatory("Email-ID", pemail);
         tvexistingdob = (TextView) findViewById(R.id.tv_dob);
+
+        ////showEditTextsAsMandatory ( tvexistingdob );
+        NewPatientActivity.showTextViewsAsMandatory("Date of Birth", tvexistingdob);
 
         ivdob = (ImageView) findViewById(R.id.iv_dob);
 
@@ -449,54 +450,11 @@ public class ExistingPatientActivity extends AppCompatActivity {
         submitExistingPatientBTN = (Button) findViewById(R.id.submit_existing_patient);
     }
 
-    public void fillSpinnerDept() {
-        deptArray.add("Cardiologist");
-        deptArray.add("Dermatologist");
-        deptArray.add("Gynecologist");
-        deptArray.add("Neurologist");
-        deptArray.add("Orthopedic Surgeon");
-        deptArray.add("Psychiatrist");
-        deptArray.add("Surgeon");
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> deptAdapter = new ArrayAdapter<String>(ExistingPatientActivity.this, android.R.layout.simple_spinner_dropdown_item, deptArray);
-        deptspnr.setAdapter(deptAdapter);
-    }
-
-    public void fillSpinnerDoctor() {
-        doctorArray.add("Dr.David");
-        doctorArray.add("Dr.Suzanne");
-        doctorArray.add("Dr.George");
-        doctorArray.add("Dr.John");
-        doctorArray.add("Dr.Michael");
-        doctorArray.add("Dr.Peyton");
-        doctorArray.add("Dr.James");
-        doctorArray.add("Dr.Paula");
-        doctorArray.add("Dr.Robert");
-        doctorArray.add("Dr.Jensen");
-        doctorArray.add("Dr.Mery");
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> doctorAdapter = new ArrayAdapter<String>(ExistingPatientActivity.this, android.R.layout.simple_spinner_dropdown_item, doctorArray);
-        doctorspnr.setAdapter(doctorAdapter);
-    }
-
-    public void fillSpinnerReason() {
-        reasonArray.add("Irregular Heart Rhythems");
-        reasonArray.add("High Blood Pressure");
-        reasonArray.add("Heart Failure");
-        reasonArray.add("Heart Attacks");
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> reasonAdapter = new ArrayAdapter<String>(ExistingPatientActivity.this, android.R.layout.simple_spinner_dropdown_item, reasonArray);
-        reasonspnr.setAdapter(reasonAdapter);
-    }
-
-    @Override
+   /* @Override
     protected void onDestroy() {
         super.onDestroy();
         databaseAdapter.close();
-    }
+    }*/
 
    /* @Override
     public void onUserLeaveHint() {
@@ -711,6 +669,7 @@ public class ExistingPatientActivity extends AppCompatActivity {
         }
 
     }
+
 
 }
 

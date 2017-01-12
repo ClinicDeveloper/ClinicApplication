@@ -14,6 +14,7 @@ import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -46,6 +47,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.sanmol.clinicapplication.activities.ExistingPatientActivity.tvexistingdob;
 
 
 public class NewPatientActivity extends AppCompatActivity {
@@ -95,10 +97,6 @@ public class NewPatientActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-        databaseAdapter = new DatabaseAdapter(getApplicationContext());
-        databaseAdapter = databaseAdapter.open();
 
         initialize();
         new GetDepartmentReasonWS().execute();
@@ -245,9 +243,7 @@ public class NewPatientActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        // flag = 1;
         Intent main = new Intent(NewPatientActivity.this, MainActivity.class);
-        // main.putExtra("flag", "" + flag);
         startActivity(main);
         finish();
     }
@@ -328,12 +324,16 @@ public class NewPatientActivity extends AppCompatActivity {
 
     public void initialize() {
         pfname = (EditText) findViewById(R.id.et_pfname);
+        showEditTextsAsMandatory("First Name", pfname);
         plname = (EditText) findViewById(R.id.et_plname);
+        showEditTextsAsMandatory("Last Name", plname);
         pcontact = (EditText) findViewById(R.id.et_pcontact);
         pemail = (EditText) findViewById(R.id.et_pemail);
+        showEditTextsAsMandatory("Email-ID", pemail);
         loader_layout = (FrameLayout) findViewById(R.id.loading);
 
         tvdob = (TextView) findViewById(R.id.tv_dob);
+        showTextViewsAsMandatory("Date of Birth", tvdob);
 
         ivdob = (ImageView) findViewById(R.id.iv_dob);
 
@@ -367,6 +367,22 @@ public class NewPatientActivity extends AppCompatActivity {
             super.onUserLeaveHint();
         }
     }*/
+
+    public static void showEditTextsAsMandatory(String hint, EditText... ets) {
+        for (EditText et : ets) {
+            //String hint = et.getHint().toString();
+
+            et.setHint(Html.fromHtml(hint + "<font color=\"#ff0000\">" + "* " + "</font>"));
+        }
+    }
+
+    public static void showTextViewsAsMandatory(String text, TextView... tvs) {
+        for (TextView tv : tvs) {
+            //String text = tv.getText().toString();
+
+            tv.setText(Html.fromHtml(text + "<font color=\"#ff0000\">" + "* " + "</font>"));
+        }
+    }
 
 
     public static class DatePickerFragment extends DialogFragment
