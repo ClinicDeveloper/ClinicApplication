@@ -17,11 +17,13 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:text="Submit" />
+        android:text="Submit"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/new_patient"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar">
@@ -38,15 +40,14 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/et_pfname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="First Name*"
-                    android:backgroundTint="@android:color/holo_red_light" />/>
+                    android:hint=""
+                    android:textSize="16dp"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -57,8 +58,8 @@
                     android:id="@+id/et_plname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Last Name*"
-                    android:backgroundTint="@android:color/holo_red_light" />
+                    android:hint=""
+                    android:textSize="16dp"/>
             </android.support.design.widget.TextInputLayout>
 
             <FrameLayout
@@ -72,10 +73,10 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="5dp"
                     android:paddingTop="10dp"
-                    android:text="Date of Birth*"
+                    android:text="Date of Birth"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/gray"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
 
                 <ImageView
                     android:id="@+id/iv_dob"
@@ -98,8 +99,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:hint="Gender"
-                    android:textSize="18dp" />
+                    android:text="Gender"
+                     />
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/rg_gender"
@@ -116,27 +117,27 @@
                         android:checked="true"
                         android:text="Male"
                         android:textColor="@color/gray"
-                        android:textSize="18dp" />
+                        android:textSize="16dp" />
 
                     <RadioButton
                         android:id="@+id/rb_female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="2dp"
                         android:text="Female"
                         android:textColor="@color/gray"
-                        android:textSize="18dp" />
+                        android:textSize="16dp" />
 
                     <RadioButton
                         android:id="@+id/rb_other"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="2dp"
                         android:text="Other"
                         android:textColor="@color/gray"
-                        android:textSize="18dp" />
+                        android:textSize="16dp"/>
                 </RadioGroup>
             </LinearLayout>
 
@@ -151,7 +152,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Phone No."
                     android:inputType="phone"
-                    android:maxLength="10" />
+                    android:maxLength="10"
+                    android:textSize="16dp"/>
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
@@ -172,16 +174,15 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/et_pemail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email-ID*"
+                    android:hint=""
                     android:inputType="textEmailAddress"
-                    android:backgroundTint="@android:color/holo_red_light" />
+                    android:textSize="16dp"/>
             </android.support.design.widget.TextInputLayout>
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
@@ -190,7 +191,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Select Department"
                 android:textColorHint="@color/gray"
-                app:met_floatingLabel="normal" />
+                app:met_floatingLabel="normal"
+                android:textSize="16dp"/>
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/doctorspnr"
@@ -199,7 +201,8 @@
                 android:hint="Select Doctor"
                 android:textColorHint="@color/gray"
                 android:visibility="gone"
-                app:met_floatingLabel="normal" />
+                app:met_floatingLabel="normal"
+                android:textSize="16dp"/>
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/reasonspnr"
@@ -207,7 +210,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Select Reason"
                 android:textColorHint="@color/gray"
-                app:met_floatingLabel="normal" />
+                app:met_floatingLabel="normal"
+                android:textSize="16dp"/>
 
             <!--  <android.support.design.widget.TextInputLayout
                   android:layout_width="match_parent"
