@@ -27,5 +27,10 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/red</item>
+
+    </style>
 
 </resources>

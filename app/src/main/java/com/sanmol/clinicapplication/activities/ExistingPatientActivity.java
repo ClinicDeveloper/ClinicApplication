@@ -72,7 +72,6 @@ public class ExistingPatientActivity extends AppCompatActivity {
     String department, doctor, reason;
     static final int DATE_DIALOG_ID = 99;
     public String title = "Success";
-    int deptPos, doctorPos, reasonPos;
     JSONObject jsonobj;
     String jsonString;
     String email, dob;
@@ -170,28 +169,33 @@ public class ExistingPatientActivity extends AppCompatActivity {
                             successPopup("Success", ExistingPatientActivity.this);
                         } else
                             registerPopup("Register", ExistingPatientActivity.this);*/
-                    if (!emailValid) {
-                        pemail.setError("Email-ID is invalid.");
-                    }
-                    JSONArray jsonArray = new JSONArray();
-                    jsonobj = new JSONObject();
+                   /* if (!email.equals("")) {
+                        if (!emailValid)
+                            pemail.setError("Email-ID is invalid.");
+                    } else {*/
+                        JSONArray jsonArray = new JSONArray();
+                        jsonobj = new JSONObject();
 
-                    try {
+                        try {
 
-                        jsonobj.put("ref_id", refno);
-                        jsonobj.put("phone_no", contact);
-                        jsonobj.put("email_id", email);
+                            jsonobj.put("ref_id", refno);
+                            jsonobj.put("phone_no", contact);
+                            jsonobj.put("email_id", email);
+                            jsonobj.put("dept_id", dept_id);
+                            jsonobj.put("doctor_id", doctor_id);
+                            jsonobj.put("reason_id", reason_id);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-                    jsonArray.put(jsonobj);
+                        jsonArray.put(jsonobj);
 
-                    jsonString = jsonArray.toString().replaceFirst("\\[", "").replaceAll("\\}\\]\\}\\]", "}]}");
-                    jsonString = jsonArray.toString().substring(1, jsonArray.toString().length() - 1);
-                    Log.e("jsonString", "" + jsonString);
-                    new AsyncCallSubmitExistingPatientWS(jsonString).execute();
+                        jsonString = jsonArray.toString().replaceFirst("\\[", "").replaceAll("\\}\\]\\}\\]", "}]}");
+                        jsonString = jsonArray.toString().substring(1, jsonArray.toString().length() - 1);
+                        Log.e("jsonString", "" + jsonString);
+                        new AsyncCallSubmitExistingPatientWS(jsonString).execute();
+                   // }
 
                 } else {
                     Toast.makeText(ExistingPatientActivity.this, "Enter Ref No./Contact/Email-ID", Toast.LENGTH_LONG).show();
@@ -242,9 +246,10 @@ public class ExistingPatientActivity extends AppCompatActivity {
                 newPatient.putExtra("contact", "" + contact);
                 newPatient.putExtra("email", "" + email);
                 newPatient.putExtra("dob", "" + dob);
-                newPatient.putExtra("department", deptPos);
-                newPatient.putExtra("doctor", doctorPos);
-                newPatient.putExtra("reason", reasonPos);
+                newPatient.putExtra("department_id", dept_id);
+                newPatient.putExtra("doctor_id", doctor_id);
+                newPatient.putExtra("reason_id", reason_id);
+                Log.e("ID's Existing ", "department_id " + dept_id + " doctor_id " + doctor_id + " reason_id " + reason_id);
                 startActivity(newPatient);
             }
         });
@@ -289,7 +294,7 @@ public class ExistingPatientActivity extends AppCompatActivity {
         final android.app.AlertDialog alert = alertDialogBuilder.create();
         alert.show();
 
-        new CountDownTimer(150000, 1000) { // adjust the milli seconds here
+        new CountDownTimer(3000000, 1000) { // adjust the milli seconds here
 
             public void onTick(long millisUntilFinished) {
 
@@ -527,7 +532,7 @@ public class ExistingPatientActivity extends AppCompatActivity {
 
             Log.d("response ... ", "Hello  " + response);
             if (response == null || response.equals("0") || response.equals("[]") || response.equals("TimeOut")) {
-                Toast.makeText(ExistingPatientActivity.this, "Network Error.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ExistingPatientActivity.this, "Error in invoking webservice.", Toast.LENGTH_LONG).show();
                 deptspnr.setVisibility(View.GONE);
                 reasonspnr.setVisibility(View.GONE);
                 loader_layout.setVisibility(View.GONE);
@@ -612,7 +617,7 @@ public class ExistingPatientActivity extends AppCompatActivity {
 
             Log.d("response ... ", "Hello  " + response);
             if (response == null || response.equals("0") || response.equals("[]") || response.equals("TimeOut")) {
-                Toast.makeText(ExistingPatientActivity.this, "Network error", Toast.LENGTH_LONG).show();
+                Toast.makeText(ExistingPatientActivity.this, "Error in invoking webservice.", Toast.LENGTH_LONG).show();
                 loader_layout.setVisibility(View.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             } else {
@@ -677,7 +682,7 @@ public class ExistingPatientActivity extends AppCompatActivity {
         protected void onPostExecute(String response) {
             Log.e("res", "" + res);
             if (response.equals("TimeOut")) {
-                Toast.makeText(ExistingPatientActivity.this, "Error invoking in webservice.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ExistingPatientActivity.this, "Error in invoking webservice.", Toast.LENGTH_LONG).show();
                 loader_layout.setVisibility(View.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             } else {
@@ -691,8 +696,7 @@ public class ExistingPatientActivity extends AppCompatActivity {
                         String appointment_id = jsonObject.getString("appointment_id");
                         String doctor_name = jsonObject.getString("doctor_name");
                         successPopup(result, appointment_id, doctor_name, ExistingPatientActivity.this);
-                    }
-                    else if (code.equals("400") || result.equals("Failure")) {
+                    } else if (code.equals("400") || result.equals("Failure")) {
                         registerPopup("Register", ExistingPatientActivity.this);
                     }
 

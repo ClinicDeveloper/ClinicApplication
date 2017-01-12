@@ -11,9 +11,9 @@ public class ApiClass {
 
     public static int REC_CODE = 3;
 
-    // public static String masterAPI = "http://test2.celebritydds.com/CelebrityDDS-Web/web/index.php?r=";
+    public static String masterAPI = "http://7mmc.sanmol.in/backend/web/Index.php?r=";
 
-    public static String masterAPI = "http://192.168.0.32/hms/backend/web/index.php?r=";
+    //public static String masterAPI = "http://192.168.0.32/hms/backend/web/index.php?r=";
     ArrayList<NameValuePair> postParameters;
     String res;
 
@@ -62,6 +62,19 @@ public class ApiClass {
         postParameters.add(new BasicNameValuePair("jsonString", jsonString));*/
         try {
             res = CustomHttpClient.executeHttpPost(masterAPI + "user/register-patient", jsonString);
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public String exitPatient(String phone_no) {
+        postParameters = new ArrayList<NameValuePair>();
+        postParameters.add(new BasicNameValuePair("phone_no", phone_no));
+        try {
+            res = CustomHttpClient.executeHttpPost(masterAPI + "user/exit-patient", postParameters);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (Exception e) {

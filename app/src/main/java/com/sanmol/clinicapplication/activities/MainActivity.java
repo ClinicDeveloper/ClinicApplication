@@ -2,6 +2,7 @@ package com.sanmol.clinicapplication.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -10,13 +11,19 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sanmol.clinicapplication.DatabaseAdapter;
 import com.sanmol.clinicapplication.R;
+import com.sanmol.clinicapplication.services.ApiClass;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -30,14 +37,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView date;
     public static int flag = 1;
     public static boolean errored = false;
+    FrameLayout loader_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        databaseAdapter = new DatabaseAdapter(this);
-        databaseAdapter = databaseAdapter.open();
         newPatientBtn = (Button) findViewById(new_patient);
         existingPatientBtn = (Button) findViewById(R.id.existing_patient);
         date = (TextView) findViewById(R.id.date);
@@ -49,9 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 // textView is the TextView view that should display it
         date.setText(currentDateTimeString);
 
-      /*  if (getIntent().getExtras() != null) {
-            flag = getIntent().getExtras().getInt("flag");
-        }*/
 
     }
 
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case new_patient:
-               // flag = 1;
+                // flag = 1;
                 Intent new_patient = new Intent(MainActivity.this, NewPatientActivity.class);
                 startActivity(new_patient);
                 finish();
@@ -96,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button dialog_btn_positive = (Button) dialogSignature.findViewById(R.id.dialog_btn_positive);
         dialog_btn_positive.setText("" + getResources().getString(R.string.submit));
+
+        loader_layout = (FrameLayout) dialogSignature.findViewById(R.id.loading);
         final android.app.AlertDialog alert = alertDialogBuilder.create();
         alert.show();
 
@@ -103,17 +108,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 String contact = etcontact.getText().toString();
-                Boolean result = databaseAdapter
-                        .authenticateEntry(contact);
-                if (result == true) {
+                if(contact.equalsIgnoreCase("admin123"))
+                {
                     finish();
-                } else {
+                    System.exit(0);
+                }
+                else
+                {
                     Toast.makeText(MainActivity.this,
                             "You cannot exit from the application.", Toast.LENGTH_LONG)
                             .show();
-//                    Intent main = new Intent(MainActivity.this, MainActivity.class);
-//                    startActivity(main);
+                    Intent start = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(start);
                 }
+                // finish();
+                //new AsyncCallExitPatientWS(contact).execute();
             }
         });
 
@@ -141,23 +150,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         super.onBackPressed();
         backPopup(title, this);
-    }
+    }*/
 
     @Override
     public void onPause() {
-
-        /*finish();
-        Intent i = getBaseContext().getPackageManager()
-                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);*/
-        /*Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.setComponent(new ComponentName("com.sanmol.clinicapplication","com.sanmol.clinicapplication.MainActivity"));
-        startActivity(intent);*/
         super.onPause();
     }
 
@@ -185,6 +185,69 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
+    }
+
+    private class AsyncCallExitPatientWS extends AsyncTask<String, Void, String> {
+        ApiClass apiClass;
+        String res;
+        String phone_no;
+
+        public AsyncCallExitPatientWS(String phone_no) {
+            this.phone_no = phone_no;
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loader_layout.setVisibility(View.VISIBLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            apiClass = new ApiClass();
+        }
+
+        protected String doInBackground(String... args) {
+            res = apiClass.exitPatient(phone_no);
+            return res;
+        }
+
+        protected void onPostExecute(String response) {
+            Log.e("exitPatient", "" + res);
+            if (response.equals("TimeOut")) {
+                Toast.makeText(MainActivity.this, "Error in invoking webservice.", Toast.LENGTH_LONG).show();
+                loader_layout.setVisibility(View.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Intent start = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(start);
+            } else {
+                try {
+                    JSONObject jsonObject = new JSONObject(res);
+                    String code = jsonObject.getString("code");
+                    String message = jsonObject.getString("message");
+                    String result = jsonObject.getString("result");
+
+                    if (code.equals("200") || result.equals("Succcess")) {
+
+                        finish();
+                        System.exit(0);
+
+                    } else if (code.equals("400") || result.equals("Failure")) {
+
+                        Toast.makeText(MainActivity.this,
+                                "You cannot exit from the application.", Toast.LENGTH_LONG)
+                                .show();
+                        Intent start = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(start);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            loader_layout.setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            this.cancel(true);
+        }
+
     }
 
    /* @Override

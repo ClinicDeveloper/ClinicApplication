@@ -8,6 +8,7 @@
     <color name="button_color">#ededed</color>
     <color name="header">#ece3e4</color>
     <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
     <color name="dark_gray">#544c4c</color>
     <color name="disable_gray">#d7d6d6</color>
     <color name="click_gray">#ccc8c8</color>
